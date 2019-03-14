@@ -1,4 +1,4 @@
-package br.com.projeto.apirest.entidade;
+package br.com.projeto.apirest.entity;
 
 import java.io.Serializable;
 import java.util.Date;
