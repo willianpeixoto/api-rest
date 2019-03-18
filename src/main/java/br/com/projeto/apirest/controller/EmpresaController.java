@@ -3,15 +3,16 @@ package br.com.projeto.apirest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.projeto.apirest.entity.Empresa;
 import br.com.projeto.apirest.service.EmpresaService;
@@ -33,9 +34,9 @@ public class EmpresaController {
 		return empresaService.listar();
 	}
 	
-	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ResponseEntity<?> cadastrarEmpresa(@RequestBody Empresa empresa, UriComponentsBuilder ucBuilder) {
-		return empresaService.cadastrar(empresa, ucBuilder);
+	@PostMapping(value="/")
+	public ResponseEntity<String> cadastrarEmpresa(@Valid @RequestBody Empresa empresa) {
+		return empresaService.cadastrar(empresa);
 	}
 
 }
