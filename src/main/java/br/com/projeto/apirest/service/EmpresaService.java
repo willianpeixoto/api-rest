@@ -27,12 +27,20 @@ public class EmpresaService {
 		return empresaRepository.findAll();
 	}
 	
-	public ResponseEntity<String> cadastrar(@RequestBody Empresa empresa) {
+	public ResponseEntity<String> salvar(@RequestBody Empresa empresa) {
 		if(existe(empresa)) {
-			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
 		empresaRepository.save(empresa);
-		return new ResponseEntity<String>(HttpStatus.CREATED);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	public ResponseEntity<String> atualizar(@RequestBody Empresa empresa) {
+		if(Objects.nonNull(empresa) && Objects.nonNull(empresa.getId())) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}
+		empresaRepository.save(empresa);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
 	private	Boolean existe(Empresa empresa) {
@@ -43,6 +51,10 @@ public class EmpresaService {
 			}
 		}
 		return Boolean.FALSE;
+	}
+
+	public void deletarPorId(Long id) {
+		empresaRepository.deleteById(id);
 	}
 
 }
